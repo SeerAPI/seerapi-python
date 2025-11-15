@@ -1,7 +1,21 @@
 [project]
 name = "seerapi"
 version = "1.0.0b1"
-description = "Add your description here"
+description = "SeerAPI Python Client"
+authors = [{ name = "Nattsu39", email = "Nattsu39@outlook.com" }]
+license = { file = "LICENSE" }
+keywords = ["seerapi", "client"]
+classifiers = [
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
@@ -10,6 +24,10 @@ dependencies = [
     "seerapi-models>=1.0.2",
     "typing-extensions>=4.15.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/SeerAPI/seerapi-python"
+Repository = "https://github.com/SeerAPI/seerapi-python"
 
 [tool.uv.build-backend]
 module-root = ""
