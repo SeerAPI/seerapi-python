@@ -38,13 +38,13 @@ async def main():
         pet = await client.get('pet', id=1)
         print(f"精灵名称: {pet.name}")
         
-        # 获取精灵列表（分页）
-        response = await client.list('pet', PageInfo(offset=0, limit=10))
-        print(f"总数: {response.count}")
-        
-        # 遍历结果
-        async for pet in response.results:
+        # 获取所有精灵（自动分页）
+        count = 0
+        async for pet in client.list('pet'):
             print(f"ID: {pet.id}, 名称: {pet.name}")
+            count += 1
+            if count >= 10:  # 只显示前 10 个
+                break
 
 if __name__ == '__main__':
     asyncio.run(main())
@@ -114,9 +114,35 @@ skill = await client.get('skill', id=100)
 equip = await client.get('equip', id=50)
 ```
 
-##### `list(resource_name, page_info)`
+##### `list(resource_name)`
 
-获取资源列表（支持分页）。
+获取所有资源的异步生成器，自动处理分页。
+
+**参数：**
+- `resource_name` (str): 资源类型名称
+
+**返回：**
+- `AsyncGenerator`: 异步生成器，用于遍历所有资源
+
+**示例：**
+
+```python
+# 遍历所有精灵
+async for pet in client.list('pet'):
+    print(pet.name)
+
+# 只获取前 100 个
+count = 0
+async for pet in client.list('pet'):
+    print(pet.name)
+    count += 1
+    if count >= 100:
+        break
+```
+
+##### `paginated_list(resource_name, page_info)`
+
+获取资源列表（手动分页控制）。
 
 **参数：**
 - `resource_name` (str): 资源类型名称
@@ -125,7 +151,7 @@ equip = await client.get('equip', id=50)
 **返回：**
 - `PagedResponse` 对象，包含：
   - `count` (int): 总记录数
-  - `results` (AsyncGenerator): 异步生成器，用于遍历结果
+  - `results` (AsyncGenerator): 异步生成器，用于遍历当前页结果
   - `next` (PageInfo | None): 下一页信息
   - `previous` (PageInfo | None): 上一页信息
   - `first` (PageInfo | None): 首页信息
@@ -138,7 +164,10 @@ from seerapi import PageInfo
 
 # 获取前 20 条记录
 page_info = PageInfo(offset=0, limit=20)
-response = await client.list('pet', page_info)
+response = await client.paginated_list('pet', page_info)
+
+# 查看总数
+print(f"总数: {response.count}")
 
 # 遍历当前页的结果
 async for pet in response.results:
@@ -146,7 +175,7 @@ async for pet in response.results:
 
 # 获取下一页
 if response.next:
-    next_response = await client.list('pet', response.next)
+    next_response = await client.paginated_list('pet', response.next)
 ```
 
 ### PageInfo 类
@@ -184,10 +213,13 @@ from seerapi import async_to_sync, SeerAPI
 @async_to_sync
 async def fetch_pet_list(limit: int = 10):
     async with SeerAPI() as client:
-        response = await client.list('pet', PageInfo(limit=limit))
         pets = []
-        async for pet in response.results:
+        count = 0
+        async for pet in client.list('pet'):
             pets.append(pet)
+            count += 1
+            if count >= limit:
+                break
         return pets
 
 # 同步调用

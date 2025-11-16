@@ -1,3 +1,4 @@
+from collections.abc import AsyncGenerator
 from typing import Literal, overload
 from typing_extensions import Self
 
@@ -191,189 +192,338 @@ class SeerAPI:
     ) -> M.EidEffect: ...
     async def get(self, resource_name: ModelName, id: int) -> ModelInstance: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['battle_effect'], page_info: PageInfo
     ) -> PagedResponse[M.BattleEffect]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['battle_effect_type'], page_info: PageInfo
     ) -> PagedResponse[M.BattleEffectCategoryORM]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['pet_effect'], page_info: PageInfo
     ) -> PagedResponse[M.PetEffect]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['pet_effect_group'], page_info: PageInfo
     ) -> PagedResponse[M.PetEffectGroup]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['pet_variation'], page_info: PageInfo
     ) -> PagedResponse[M.VariationEffect]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['energy_bead'], page_info: PageInfo
     ) -> PagedResponse[M.EnergyBead]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['equip'], page_info: PageInfo
     ) -> PagedResponse[M.Equip]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['suit'], page_info: PageInfo
     ) -> PagedResponse[M.Suit]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['equip_type'], page_info: PageInfo
     ) -> PagedResponse[M.EquipType]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['equip_effective_occasion'], page_info: PageInfo
     ) -> PagedResponse[M.EquipEffectiveOccasion]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['soulmark'], page_info: PageInfo
     ) -> PagedResponse[M.Soulmark]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['soulmark_tag'], page_info: PageInfo
     ) -> PagedResponse[M.SoulmarkTagCategory]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['element_type'], page_info: PageInfo
     ) -> PagedResponse[M.ElementType]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['element_type_combination'], page_info: PageInfo
     ) -> PagedResponse[M.TypeCombination]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['item'], page_info: PageInfo
     ) -> PagedResponse[M.Item]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['item_category'], page_info: PageInfo
     ) -> PagedResponse[M.ItemCategory]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['gem'], page_info: PageInfo
     ) -> PagedResponse[M.Gem]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['gem_category'], page_info: PageInfo
     ) -> PagedResponse[M.GemCategory]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['gem_generation_category'], page_info: PageInfo
     ) -> PagedResponse[M.GemGenCategory]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['skill_activation_item'], page_info: PageInfo
     ) -> PagedResponse[M.SkillActivationItem]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['skill_stone'], page_info: PageInfo
     ) -> PagedResponse[M.SkillStone]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['skill_stone_category'], page_info: PageInfo
     ) -> PagedResponse[M.SkillStoneCategory]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['mintmark'], page_info: PageInfo
     ) -> PagedResponse[M.Mintmark]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['ability_mintmark'], page_info: PageInfo
     ) -> PagedResponse[M.AbilityMintmark]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['skill_mintmark'], page_info: PageInfo
     ) -> PagedResponse[M.SkillMintmark]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['universal_mintmark'], page_info: PageInfo
     ) -> PagedResponse[M.UniversalMintmark]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['mintmark_class'], page_info: PageInfo
     ) -> PagedResponse[M.MintmarkClassCategory]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['mintmark_type'], page_info: PageInfo
     ) -> PagedResponse[M.MintmarkTypeCategory]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['mintmark_rarity'], page_info: PageInfo
     ) -> PagedResponse[M.MintmarkRarityCategory]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['pet'], page_info: PageInfo
     ) -> PagedResponse[M.Pet]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['pet_class'], page_info: PageInfo
     ) -> PagedResponse[M.PetClass]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['pet_gender'], page_info: PageInfo
     ) -> PagedResponse[M.PetGenderCategory]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['pet_vipbuff'], page_info: PageInfo
     ) -> PagedResponse[M.PetVipBuffCategory]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['pet_mount_type'], page_info: PageInfo
     ) -> PagedResponse[M.PetMountTypeCategory]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['pet_skin'], page_info: PageInfo
     ) -> PagedResponse[M.PetSkin]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['pet_skin_category'], page_info: PageInfo
     ) -> PagedResponse[M.PetSkinCategory]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['pet_archive_story_entry'], page_info: PageInfo
     ) -> PagedResponse[M.PetArchiveStoryEntry]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['pet_archive_story_book'], page_info: PageInfo
     ) -> PagedResponse[M.PetArchiveStoryBook]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['pet_encyclopedia_entry'], page_info: PageInfo
     ) -> PagedResponse[M.PetEncyclopediaEntry]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['skill'], page_info: PageInfo
     ) -> PagedResponse[M.Skill]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['skill_effect_type'], page_info: PageInfo
     ) -> PagedResponse[M.SkillEffectType]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['skill_effect_param'], page_info: PageInfo
     ) -> PagedResponse[M.SkillEffectParam]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['skill_hide_effect'], page_info: PageInfo
     ) -> PagedResponse[M.SkillHideEffect]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['skill_category'], page_info: PageInfo
     ) -> PagedResponse[M.SkillCategory]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['skill_effect_type_tag'], page_info: PageInfo
     ) -> PagedResponse[M.SkillEffectTypeTag]: ...
     @overload
-    async def list(
+    async def paginated_list(
         self, resource_name: Literal['eid_effect'], page_info: PageInfo
     ) -> PagedResponse[M.EidEffect]: ...
-    async def list(
+    async def paginated_list(
         self, resource_name: ModelName, page_info: PageInfo
     ) -> PagedResponse[ModelInstance]: ...
+    @overload
+    async def list(self, resource_name: Literal['battle_effect']) -> M.BattleEffect: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['battle_effect_type']
+    ) -> M.BattleEffectCategoryORM: ...
+    @overload
+    async def list(self, resource_name: Literal['pet_effect']) -> M.PetEffect: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['pet_effect_group']
+    ) -> M.PetEffectGroup: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['pet_variation']
+    ) -> M.VariationEffect: ...
+    @overload
+    async def list(self, resource_name: Literal['energy_bead']) -> M.EnergyBead: ...
+    @overload
+    async def list(self, resource_name: Literal['equip']) -> M.Equip: ...
+    @overload
+    async def list(self, resource_name: Literal['suit']) -> M.Suit: ...
+    @overload
+    async def list(self, resource_name: Literal['equip_type']) -> M.EquipType: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['equip_effective_occasion']
+    ) -> M.EquipEffectiveOccasion: ...
+    @overload
+    async def list(self, resource_name: Literal['soulmark']) -> M.Soulmark: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['soulmark_tag']
+    ) -> M.SoulmarkTagCategory: ...
+    @overload
+    async def list(self, resource_name: Literal['element_type']) -> M.ElementType: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['element_type_combination']
+    ) -> M.TypeCombination: ...
+    @overload
+    async def list(self, resource_name: Literal['item']) -> M.Item: ...
+    @overload
+    async def list(self, resource_name: Literal['item_category']) -> M.ItemCategory: ...
+    @overload
+    async def list(self, resource_name: Literal['gem']) -> M.Gem: ...
+    @overload
+    async def list(self, resource_name: Literal['gem_category']) -> M.GemCategory: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['gem_generation_category']
+    ) -> M.GemGenCategory: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['skill_activation_item']
+    ) -> M.SkillActivationItem: ...
+    @overload
+    async def list(self, resource_name: Literal['skill_stone']) -> M.SkillStone: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['skill_stone_category']
+    ) -> M.SkillStoneCategory: ...
+    @overload
+    async def list(self, resource_name: Literal['mintmark']) -> M.Mintmark: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['ability_mintmark']
+    ) -> M.AbilityMintmark: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['skill_mintmark']
+    ) -> M.SkillMintmark: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['universal_mintmark']
+    ) -> M.UniversalMintmark: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['mintmark_class']
+    ) -> M.MintmarkClassCategory: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['mintmark_type']
+    ) -> M.MintmarkTypeCategory: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['mintmark_rarity']
+    ) -> M.MintmarkRarityCategory: ...
+    @overload
+    async def list(self, resource_name: Literal['pet']) -> M.Pet: ...
+    @overload
+    async def list(self, resource_name: Literal['pet_class']) -> M.PetClass: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['pet_gender']
+    ) -> M.PetGenderCategory: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['pet_vipbuff']
+    ) -> M.PetVipBuffCategory: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['pet_mount_type']
+    ) -> M.PetMountTypeCategory: ...
+    @overload
+    async def list(self, resource_name: Literal['pet_skin']) -> M.PetSkin: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['pet_skin_category']
+    ) -> M.PetSkinCategory: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['pet_archive_story_entry']
+    ) -> M.PetArchiveStoryEntry: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['pet_archive_story_book']
+    ) -> M.PetArchiveStoryBook: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['pet_encyclopedia_entry']
+    ) -> M.PetEncyclopediaEntry: ...
+    @overload
+    async def list(self, resource_name: Literal['skill']) -> M.Skill: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['skill_effect_type']
+    ) -> M.SkillEffectType: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['skill_effect_param']
+    ) -> M.SkillEffectParam: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['skill_hide_effect']
+    ) -> M.SkillHideEffect: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['skill_category']
+    ) -> M.SkillCategory: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['skill_effect_type_tag']
+    ) -> M.SkillEffectTypeTag: ...
+    @overload
+    async def list(self, resource_name: Literal['eid_effect']) -> M.EidEffect: ...
+    async def list(
+        self, resource_name: ModelName
+    ) -> AsyncGenerator[ModelInstance, None]: ...

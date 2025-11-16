@@ -1,4 +1,4 @@
-from typing import Literal, TypeAlias, TypeVar
+from typing import Literal, TypeAlias
 
 import seerapi_models as M
 from seerapi_models.common import BaseResModel, BaseResModelWithOptionalId
