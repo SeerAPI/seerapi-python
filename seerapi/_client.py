@@ -86,21 +86,22 @@ class SeerAPI:
         )
 
     async def list(
-        self, resource_name: ModelName
+        self, resource_name: ModelName,
     ) -> AsyncGenerator[ModelInstance, None]:
         """获取所有资源的异步生成器，自动处理分页"""
-        page_info = PageInfo(offset=0, limit=100)  # 使用较大的页面大小提高效率
+        async def create_generator(page_info: PageInfo):
+            while True:
+                paged_response = await self.paginated_list(resource_name, page_info)
 
-        while True:
-            paged_response = await self.paginated_list(resource_name, page_info)
+                # 生成当前页的所有结果
+                async for item in paged_response.results:
+                    yield item
 
-            # 生成当前页的所有结果
-            async for item in paged_response.results:
-                yield item
+                # 检查是否还有下一页
+                if paged_response.next is None:
+                    break
 
-            # 检查是否还有下一页
-            if paged_response.next is None:
-                break
+                # 更新到下一页
+                page_info = paged_response.next
 
-            # 更新到下一页
-            page_info = paged_response.next
+        return create_generator(PageInfo(offset=0, limit=10))
