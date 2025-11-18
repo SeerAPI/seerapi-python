@@ -6,7 +6,7 @@ from hishel.httpx import AsyncCacheClient
 from httpx import URL
 import seerapi_models as M
 
-from seerapi._model_map import ModelInstance, ModelName
+from seerapi._model_map import ModelName, T_ModelInstance
 from seerapi._models import PagedResponse, PageInfo
 
 class SeerAPI:
@@ -190,7 +190,9 @@ class SeerAPI:
     async def get(
         self, resource_name: Literal['eid_effect'], id: int
     ) -> M.EidEffect: ...
-    async def get(self, resource_name: ModelName, id: int) -> ModelInstance: ...
+    @overload
+    async def get(self, resource_name: type[T_ModelInstance], id: int) -> T_ModelInstance: ...
+    async def get(self, resource_name: ModelName | type[T_ModelInstance], id: int) -> T_ModelInstance: ...
     @overload
     async def paginated_list(
         self, resource_name: Literal['battle_effect'], page_info: PageInfo
@@ -375,9 +377,13 @@ class SeerAPI:
     async def paginated_list(
         self, resource_name: Literal['eid_effect'], page_info: PageInfo
     ) -> PagedResponse[M.EidEffect]: ...
+    @overload
     async def paginated_list(
-        self, resource_name: ModelName, page_info: PageInfo
-    ) -> PagedResponse[ModelInstance]: ...
+        self, resource_name: type[T_ModelInstance], page_info: PageInfo
+    ) -> PagedResponse[T_ModelInstance]: ...
+    async def paginated_list(
+        self, resource_name: ModelName | type[T_ModelInstance], page_info: PageInfo
+    ) -> PagedResponse[T_ModelInstance]: ...
     @overload
     async def list(self, resource_name: Literal['battle_effect']) -> AsyncGenerator[M.BattleEffect, None]: ...
     @overload
@@ -524,6 +530,8 @@ class SeerAPI:
     ) -> AsyncGenerator[M.SkillEffectTypeTag, None]: ...
     @overload
     async def list(self, resource_name: Literal['eid_effect']) -> AsyncGenerator[M.EidEffect, None]: ...
+    @overload
+    async def list(self, resource_name: type[T_ModelInstance]) -> AsyncGenerator[T_ModelInstance, None]: ...
     async def list(
-        self, resource_name: ModelName
-    ) -> AsyncGenerator[ModelInstance, None]: ...
+        self, resource_name: ModelName | type[T_ModelInstance]
+    ) -> AsyncGenerator[T_ModelInstance, None]: ...

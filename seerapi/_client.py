@@ -1,11 +1,12 @@
 from collections.abc import AsyncGenerator
+from typing import cast
 from typing_extensions import Self
 
 from hishel.httpx import AsyncCacheClient
 from httpx import URL
 from httpx._urls import QueryParams
 
-from seerapi._model_map import MODEL_MAP, ModelInstance, ModelName
+from seerapi._model_map import MODEL_MAP, ModelName, T_ModelInstance
 from seerapi._models import PagedResponse, PageInfo
 
 
@@ -25,6 +26,17 @@ def _parse_url_page_info(url: str) -> PageInfo | None:
         offset=int(params['offset']),
         limit=int(params['limit']),
     )
+
+
+def _get_resource_name(resource_name: ModelName | type[T_ModelInstance]) -> ModelName:
+    if isinstance(resource_name, str):
+        name = resource_name
+    elif isinstance(resource_name, type):
+        name = resource_name.resource_name()
+    if name not in MODEL_MAP:
+        raise ValueError(f'Invalid resource name: {name}')
+
+    return name
 
 
 class SeerAPI:
@@ -53,32 +65,38 @@ class SeerAPI:
         """关闭客户端连接并释放资源"""
         await self._client.aclose()
 
-    async def get(self, resource_name: ModelName, id: int) -> ModelInstance:
-        model_type = MODEL_MAP[resource_name]
-        response = await self._client.get(f'/{resource_name}/{id}')
+    async def get(
+        self,
+        resource_name: ModelName | type[T_ModelInstance],
+        id: int,
+    ) -> T_ModelInstance:
+        res_name = _get_resource_name(resource_name)
+        model_type = MODEL_MAP[res_name]
+        response = await self._client.get(f'/{res_name}/{id}')
         response.raise_for_status()
-        return model_type.model_validate(response.json())
+        return cast(T_ModelInstance, model_type.model_validate(response.json()))
 
     async def paginated_list(
         self,
-        resource_name: ModelName,
+        resource_name: ModelName | type[T_ModelInstance],
         page_info: PageInfo,
-    ) -> PagedResponse[ModelInstance]:
+    ) -> PagedResponse[T_ModelInstance]:
+        res_name = _get_resource_name(resource_name)
         async def create_generator(
             data: list[dict],
-        ) -> AsyncGenerator[ModelInstance, None]:
+        ) -> AsyncGenerator[T_ModelInstance, None]:
             for item in data:
-                yield await self.get(resource_name, item['id'])
+                yield await self.get(res_name, item['id'])
 
         response = await self._client.get(
-            f'/{resource_name}/',
+            f'/{res_name}/',
             params={'offset': page_info.offset, 'limit': page_info.limit},
         )
         response.raise_for_status()
         response_json = response.json()
         return PagedResponse(
-            count=response.json()['count'],
-            results=create_generator(response.json()['results']),
+            count=response_json['count'],
+            results=create_generator(response_json['results']),
             next=_parse_url_page_info(response_json['next']),
             previous=_parse_url_page_info(response_json['previous']),
             first=_parse_url_page_info(response_json['first']),
@@ -86,12 +104,13 @@ class SeerAPI:
         )
 
     async def list(
-        self, resource_name: ModelName,
-    ) -> AsyncGenerator[ModelInstance, None]:
+        self, resource_name: ModelName | type[T_ModelInstance],
+    ) -> AsyncGenerator[T_ModelInstance, None]:
         """获取所有资源的异步生成器，自动处理分页"""
+        res_name = _get_resource_name(resource_name)
         async def create_generator(page_info: PageInfo):
             while True:
-                paged_response = await self.paginated_list(resource_name, page_info)
+                paged_response = await self.paginated_list(res_name, page_info)
 
                 # 生成当前页的所有结果
                 async for item in paged_response.results:

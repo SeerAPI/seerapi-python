@@ -1,7 +1,7 @@
-from typing import Literal, TypeAlias
+from typing import Literal, TypeAlias, TypeVar
 
 import seerapi_models as M
-from seerapi_models.common import BaseResModel, BaseResModelWithOptionalId
+from seerapi_models.common import BaseResModel
 
 # 所有可用的模型路径名称
 ModelName: TypeAlias = Literal[
@@ -53,9 +53,10 @@ ModelName: TypeAlias = Literal[
     'eid_effect',
 ]
 
-ModelInstance: TypeAlias = BaseResModel | BaseResModelWithOptionalId
+ModelInstance: TypeAlias = BaseResModel
 ModelType: TypeAlias = type[ModelInstance]
 
+T_ModelInstance = TypeVar('T_ModelInstance', bound=ModelInstance)
 
 MODEL_MAP: dict[ModelName, ModelType] = {
     'battle_effect': M.BattleEffect,
