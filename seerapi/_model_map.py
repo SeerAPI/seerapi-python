@@ -59,7 +59,7 @@ ModelType: TypeAlias = type[ModelInstance]
 
 MODEL_MAP: dict[ModelName, ModelType] = {
     'battle_effect': M.BattleEffect,
-    'battle_effect_type': M.BattleEffectCategoryORM,
+    'battle_effect_type': M.BattleEffectCategory,
     'pet_effect': M.PetEffect,
     'pet_effect_group': M.PetEffectGroup,
     'pet_variation': M.VariationEffect,
