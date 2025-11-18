@@ -1,13 +1,13 @@
 from collections.abc import AsyncGenerator
 from typing import Literal, overload
-from seerapi_models.common import ResourceRef
 from typing_extensions import Self
 
 from hishel.httpx import AsyncCacheClient
 from httpx import URL
 import seerapi_models as M
+from seerapi_models.common import ResourceRef
 
-from seerapi._model_map import ModelName, T_ModelInstance
+from seerapi._model_map import T_ModelInstance
 from seerapi._models import PagedResponse, PageInfo
 
 class SeerAPI:
@@ -192,9 +192,13 @@ class SeerAPI:
         self, resource_name: Literal['eid_effect'], id: int
     ) -> M.EidEffect: ...
     @overload
-    async def get(self, resource_name: type[T_ModelInstance], id: int) -> T_ModelInstance: ...
+    async def get(
+        self, resource_name: type[T_ModelInstance], id: int
+    ) -> T_ModelInstance: ...
     @overload
-    async def get(self, resource_name: ResourceRef[T_ModelInstance]) -> T_ModelInstance: ...
+    async def get(
+        self, resource_name: ResourceRef[T_ModelInstance]
+    ) -> T_ModelInstance: ...
     @overload
     async def paginated_list(
         self, resource_name: Literal['battle_effect'], page_info: PageInfo
@@ -384,13 +388,17 @@ class SeerAPI:
         self, resource_name: type[T_ModelInstance], page_info: PageInfo
     ) -> PagedResponse[T_ModelInstance]: ...
     @overload
-    async def list(self, resource_name: Literal['battle_effect']) -> AsyncGenerator[M.BattleEffect, None]: ...
+    async def list(
+        self, resource_name: Literal['battle_effect']
+    ) -> AsyncGenerator[M.BattleEffect, None]: ...
     @overload
     async def list(
         self, resource_name: Literal['battle_effect_type']
     ) -> AsyncGenerator[M.BattleEffectCategory, None]: ...
     @overload
-    async def list(self, resource_name: Literal['pet_effect']) -> AsyncGenerator[M.PetEffect, None]: ...
+    async def list(
+        self, resource_name: Literal['pet_effect']
+    ) -> AsyncGenerator[M.PetEffect, None]: ...
     @overload
     async def list(
         self, resource_name: Literal['pet_effect_group']
@@ -400,37 +408,57 @@ class SeerAPI:
         self, resource_name: Literal['pet_variation']
     ) -> AsyncGenerator[M.VariationEffect, None]: ...
     @overload
-    async def list(self, resource_name: Literal['energy_bead']) -> AsyncGenerator[M.EnergyBead, None]: ...
+    async def list(
+        self, resource_name: Literal['energy_bead']
+    ) -> AsyncGenerator[M.EnergyBead, None]: ...
     @overload
-    async def list(self, resource_name: Literal['equip']) -> AsyncGenerator[M.Equip, None]: ...
+    async def list(
+        self, resource_name: Literal['equip']
+    ) -> AsyncGenerator[M.Equip, None]: ...
     @overload
-    async def list(self, resource_name: Literal['suit']) -> AsyncGenerator[M.Suit, None]: ...
+    async def list(
+        self, resource_name: Literal['suit']
+    ) -> AsyncGenerator[M.Suit, None]: ...
     @overload
-    async def list(self, resource_name: Literal['equip_type']) -> AsyncGenerator[M.EquipType, None]: ...
+    async def list(
+        self, resource_name: Literal['equip_type']
+    ) -> AsyncGenerator[M.EquipType, None]: ...
     @overload
     async def list(
         self, resource_name: Literal['equip_effective_occasion']
     ) -> AsyncGenerator[M.EquipEffectiveOccasion, None]: ...
     @overload
-    async def list(self, resource_name: Literal['soulmark']) -> AsyncGenerator[M.Soulmark, None]: ...
+    async def list(
+        self, resource_name: Literal['soulmark']
+    ) -> AsyncGenerator[M.Soulmark, None]: ...
     @overload
     async def list(
         self, resource_name: Literal['soulmark_tag']
     ) -> AsyncGenerator[M.SoulmarkTagCategory, None]: ...
     @overload
-    async def list(self, resource_name: Literal['element_type']) -> AsyncGenerator[M.ElementType, None]: ...
+    async def list(
+        self, resource_name: Literal['element_type']
+    ) -> AsyncGenerator[M.ElementType, None]: ...
     @overload
     async def list(
         self, resource_name: Literal['element_type_combination']
     ) -> AsyncGenerator[M.TypeCombination, None]: ...
     @overload
-    async def list(self, resource_name: Literal['item']) -> AsyncGenerator[M.Item, None]: ...
+    async def list(
+        self, resource_name: Literal['item']
+    ) -> AsyncGenerator[M.Item, None]: ...
     @overload
-    async def list(self, resource_name: Literal['item_category']) -> AsyncGenerator[M.ItemCategory, None]: ...
+    async def list(
+        self, resource_name: Literal['item_category']
+    ) -> AsyncGenerator[M.ItemCategory, None]: ...
     @overload
-    async def list(self, resource_name: Literal['gem']) -> AsyncGenerator[M.Gem, None]: ...
+    async def list(
+        self, resource_name: Literal['gem']
+    ) -> AsyncGenerator[M.Gem, None]: ...
     @overload
-    async def list(self, resource_name: Literal['gem_category']) -> AsyncGenerator[M.GemCategory, None]: ...
+    async def list(
+        self, resource_name: Literal['gem_category']
+    ) -> AsyncGenerator[M.GemCategory, None]: ...
     @overload
     async def list(
         self, resource_name: Literal['gem_generation_category']
@@ -438,15 +466,19 @@ class SeerAPI:
     @overload
     async def list(
         self, resource_name: Literal['skill_activation_item']
-    ) -> AsyncGenerator[M.SkillActivationItem, None]            : ...
+    ) -> AsyncGenerator[M.SkillActivationItem, None]: ...
     @overload
-    async def list(self, resource_name: Literal['skill_stone']) -> AsyncGenerator[M.SkillStone, None]: ...
+    async def list(
+        self, resource_name: Literal['skill_stone']
+    ) -> AsyncGenerator[M.SkillStone, None]: ...
     @overload
     async def list(
         self, resource_name: Literal['skill_stone_category']
     ) -> AsyncGenerator[M.SkillStoneCategory, None]: ...
     @overload
-    async def list(self, resource_name: Literal['mintmark']) -> AsyncGenerator[M.Mintmark, None]: ...
+    async def list(
+        self, resource_name: Literal['mintmark']
+    ) -> AsyncGenerator[M.Mintmark, None]: ...
     @overload
     async def list(
         self, resource_name: Literal['ability_mintmark']
@@ -472,9 +504,13 @@ class SeerAPI:
         self, resource_name: Literal['mintmark_rarity']
     ) -> AsyncGenerator[M.MintmarkRarityCategory, None]: ...
     @overload
-    async def list(self, resource_name: Literal['pet']) -> AsyncGenerator[M.Pet, None]: ...
+    async def list(
+        self, resource_name: Literal['pet']
+    ) -> AsyncGenerator[M.Pet, None]: ...
     @overload
-    async def list(self, resource_name: Literal['pet_class']) -> AsyncGenerator[M.PetClass, None]: ...
+    async def list(
+        self, resource_name: Literal['pet_class']
+    ) -> AsyncGenerator[M.PetClass, None]: ...
     @overload
     async def list(
         self, resource_name: Literal['pet_gender']
@@ -488,7 +524,9 @@ class SeerAPI:
         self, resource_name: Literal['pet_mount_type']
     ) -> AsyncGenerator[M.PetMountTypeCategory, None]: ...
     @overload
-    async def list(self, resource_name: Literal['pet_skin']) -> AsyncGenerator[M.PetSkin, None]: ...
+    async def list(
+        self, resource_name: Literal['pet_skin']
+    ) -> AsyncGenerator[M.PetSkin, None]: ...
     @overload
     async def list(
         self, resource_name: Literal['pet_skin_category']
@@ -506,7 +544,9 @@ class SeerAPI:
         self, resource_name: Literal['pet_encyclopedia_entry']
     ) -> AsyncGenerator[M.PetEncyclopediaEntry, None]: ...
     @overload
-    async def list(self, resource_name: Literal['skill']) -> AsyncGenerator[M.Skill, None]: ...
+    async def list(
+        self, resource_name: Literal['skill']
+    ) -> AsyncGenerator[M.Skill, None]: ...
     @overload
     async def list(
         self, resource_name: Literal['skill_effect_type']
@@ -528,6 +568,10 @@ class SeerAPI:
         self, resource_name: Literal['skill_effect_type_tag']
     ) -> AsyncGenerator[M.SkillEffectTypeTag, None]: ...
     @overload
-    async def list(self, resource_name: Literal['eid_effect']) -> AsyncGenerator[M.EidEffect, None]: ...
+    async def list(
+        self, resource_name: Literal['eid_effect']
+    ) -> AsyncGenerator[M.EidEffect, None]: ...
     @overload
-    async def list(self, resource_name: type[T_ModelInstance]) -> AsyncGenerator[T_ModelInstance, None]: ...
+    async def list(
+        self, resource_name: type[T_ModelInstance]
+    ) -> AsyncGenerator[T_ModelInstance, None]: ...

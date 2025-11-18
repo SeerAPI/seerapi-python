@@ -1,16 +1,18 @@
 from collections.abc import AsyncGenerator
 from typing import TypeAlias, cast
-from seerapi_models.common import ResourceRef
 from typing_extensions import Self
 
 from hishel.httpx import AsyncCacheClient
 from httpx import URL
 from httpx._urls import QueryParams
+from seerapi_models.common import ResourceRef
 
 from seerapi._model_map import MODEL_MAP, ModelName, T_ModelInstance
 from seerapi._models import PagedResponse, PageInfo
 
-ResourceArg: TypeAlias = ModelName | type[T_ModelInstance] | ResourceRef[T_ModelInstance]
+ResourceArg: TypeAlias = (
+    ModelName | type[T_ModelInstance] | ResourceRef[T_ModelInstance]
+)
 
 
 def _parse_url_params(url: str) -> QueryParams:
@@ -99,6 +101,7 @@ class SeerAPI:
         page_info: PageInfo,
     ) -> PagedResponse[T_ModelInstance]:
         res_name = self._get_resource_name(resource_name)
+
         async def create_generator(
             data: list[dict],
         ) -> AsyncGenerator[T_ModelInstance, None]:
@@ -125,6 +128,7 @@ class SeerAPI:
     ) -> AsyncGenerator[T_ModelInstance, None]:
         """获取所有资源的异步生成器，自动处理分页"""
         res_name = self._get_resource_name(resource_name)
+
         async def create_generator(page_info: PageInfo):
             while True:
                 paged_response = await self.paginated_list(res_name, page_info)
