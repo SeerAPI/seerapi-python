@@ -1,5 +1,6 @@
 from collections.abc import AsyncGenerator
 from typing import Literal, overload
+from seerapi_models.common import ResourceRef
 from typing_extensions import Self
 
 from hishel.httpx import AsyncCacheClient
@@ -192,7 +193,8 @@ class SeerAPI:
     ) -> M.EidEffect: ...
     @overload
     async def get(self, resource_name: type[T_ModelInstance], id: int) -> T_ModelInstance: ...
-    async def get(self, resource_name: ModelName | type[T_ModelInstance], id: int) -> T_ModelInstance: ...
+    @overload
+    async def get(self, resource_name: ResourceRef[T_ModelInstance]) -> T_ModelInstance: ...
     @overload
     async def paginated_list(
         self, resource_name: Literal['battle_effect'], page_info: PageInfo
@@ -381,9 +383,6 @@ class SeerAPI:
     async def paginated_list(
         self, resource_name: type[T_ModelInstance], page_info: PageInfo
     ) -> PagedResponse[T_ModelInstance]: ...
-    async def paginated_list(
-        self, resource_name: ModelName | type[T_ModelInstance], page_info: PageInfo
-    ) -> PagedResponse[T_ModelInstance]: ...
     @overload
     async def list(self, resource_name: Literal['battle_effect']) -> AsyncGenerator[M.BattleEffect, None]: ...
     @overload
@@ -532,6 +531,3 @@ class SeerAPI:
     async def list(self, resource_name: Literal['eid_effect']) -> AsyncGenerator[M.EidEffect, None]: ...
     @overload
     async def list(self, resource_name: type[T_ModelInstance]) -> AsyncGenerator[T_ModelInstance, None]: ...
-    async def list(
-        self, resource_name: ModelName | type[T_ModelInstance]
-    ) -> AsyncGenerator[T_ModelInstance, None]: ...

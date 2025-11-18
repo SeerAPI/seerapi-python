@@ -1,5 +1,6 @@
 from collections.abc import AsyncGenerator
-from typing import cast
+from typing import TypeAlias, cast
+from seerapi_models.common import ResourceRef
 from typing_extensions import Self
 
 from hishel.httpx import AsyncCacheClient
@@ -8,6 +9,8 @@ from httpx._urls import QueryParams
 
 from seerapi._model_map import MODEL_MAP, ModelName, T_ModelInstance
 from seerapi._models import PagedResponse, PageInfo
+
+ResourceArg: TypeAlias = ModelName | type[T_ModelInstance] | ResourceRef[T_ModelInstance]
 
 
 def _parse_url_params(url: str) -> QueryParams:
@@ -26,17 +29,6 @@ def _parse_url_page_info(url: str) -> PageInfo | None:
         offset=int(params['offset']),
         limit=int(params['limit']),
     )
-
-
-def _get_resource_name(resource_name: ModelName | type[T_ModelInstance]) -> ModelName:
-    if isinstance(resource_name, str):
-        name = resource_name
-    elif isinstance(resource_name, type):
-        name = resource_name.resource_name()
-    if name not in MODEL_MAP:
-        raise ValueError(f'Invalid resource name: {name}')
-
-    return name
 
 
 class SeerAPI:
@@ -65,12 +57,37 @@ class SeerAPI:
         """关闭客户端连接并释放资源"""
         await self._client.aclose()
 
+    def _get_resource_name_from_ref(self, ref: ResourceRef[T_ModelInstance]) -> str:
+        ref_url = URL(ref.url)
+        relative_path = ref_url.path.removeprefix(self.base_url.path)
+        return relative_path.strip('/').split('/')[0]
+
+    def _get_resource_name(
+        self, resource_name: ResourceArg[T_ModelInstance]
+    ) -> ModelName:
+        if isinstance(resource_name, str):
+            name = resource_name
+        elif isinstance(resource_name, ResourceRef):
+            name = self._get_resource_name_from_ref(resource_name)
+        elif isinstance(resource_name, type):
+            name = resource_name.resource_name()
+        if name not in MODEL_MAP:
+            raise ValueError(f'Invalid resource name: {name}')
+
+        return name
+
     async def get(
         self,
-        resource_name: ModelName | type[T_ModelInstance],
-        id: int,
+        resource_name: ResourceArg[T_ModelInstance],
+        id: int | None = None,
     ) -> T_ModelInstance:
-        res_name = _get_resource_name(resource_name)
+        if id is None and not isinstance(resource_name, ResourceRef):
+            raise ValueError('id is required')
+
+        res_name = self._get_resource_name(resource_name)
+        if isinstance(resource_name, ResourceRef):
+            id = resource_name.id
+
         model_type = MODEL_MAP[res_name]
         response = await self._client.get(f'/{res_name}/{id}')
         response.raise_for_status()
@@ -78,10 +95,10 @@ class SeerAPI:
 
     async def paginated_list(
         self,
-        resource_name: ModelName | type[T_ModelInstance],
+        resource_name: ResourceArg[T_ModelInstance],
         page_info: PageInfo,
     ) -> PagedResponse[T_ModelInstance]:
-        res_name = _get_resource_name(resource_name)
+        res_name = self._get_resource_name(resource_name)
         async def create_generator(
             data: list[dict],
         ) -> AsyncGenerator[T_ModelInstance, None]:
@@ -104,10 +121,10 @@ class SeerAPI:
         )
 
     async def list(
-        self, resource_name: ModelName | type[T_ModelInstance],
+        self, resource_name: ResourceArg[T_ModelInstance]
     ) -> AsyncGenerator[T_ModelInstance, None]:
         """获取所有资源的异步生成器，自动处理分页"""
-        res_name = _get_resource_name(resource_name)
+        res_name = self._get_resource_name(resource_name)
         async def create_generator(page_info: PageInfo):
             while True:
                 paged_response = await self.paginated_list(res_name, page_info)
