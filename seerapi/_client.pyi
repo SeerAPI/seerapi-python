@@ -635,6 +635,26 @@ class SeerAPI:
     ) -> AsyncGenerator[T_ModelInstance, None]: ...
     @overload
     async def get_by_name(
+        self, resource_name: Literal['achievement'], name: str
+    ) -> NamedData[M.Achievement]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['achievement_branch'], name: str
+    ) -> NamedData[M.AchievementBranch]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['achievement_category'], name: str
+    ) -> NamedData[M.AchievementCategory]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['achievement_type'], name: str
+    ) -> NamedData[M.AchievementType]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['title'], name: str
+    ) -> NamedData[M.Title]: ...
+    @overload
+    async def get_by_name(
         self, resource_name: Literal['battle_effect'], name: str
     ) -> NamedData[M.BattleEffect]: ...
     @overload

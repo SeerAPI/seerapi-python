@@ -64,7 +64,12 @@ ModelName: TypeAlias = Literal[
 
 ModelInstance: TypeAlias = BaseResModel
 NamedModelInstance: TypeAlias = (
-    M.BattleEffect
+    M.Achievement
+    | M.AchievementBranch
+    | M.AchievementCategory
+    | M.AchievementType
+    | M.Title
+    | M.BattleEffect
     | M.BattleEffectCategory
     | M.PetEffect
     | M.PetEffectGroup
