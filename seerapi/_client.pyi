@@ -29,6 +29,24 @@ class SeerAPI:
     async def aclose(self) -> None: ...
     @overload
     async def get(
+        self, resource_name: Literal['achievement'], id: int
+    ) -> M.Achievement: ...
+    @overload
+    async def get(
+        self, resource_name: Literal['achievement_branch'], id: int
+    ) -> M.AchievementBranch: ...
+    @overload
+    async def get(
+        self, resource_name: Literal['achievement_category'], id: int
+    ) -> M.AchievementCategory: ...
+    @overload
+    async def get(
+        self, resource_name: Literal['achievement_type'], id: int
+    ) -> M.AchievementType: ...
+    @overload
+    async def get(self, resource_name: Literal['title'], id: int) -> M.Title: ...
+    @overload
+    async def get(
         self, resource_name: Literal['battle_effect'], id: int
     ) -> M.BattleEffect: ...
     @overload
@@ -199,6 +217,26 @@ class SeerAPI:
     async def get(
         self, resource_name: ResourceRef[T_ModelInstance]
     ) -> T_ModelInstance: ...
+    @overload
+    async def paginated_list(
+        self, resource_name: Literal['achievement'], page_info: PageInfo
+    ) -> PagedResponse[M.Achievement]: ...
+    @overload
+    async def paginated_list(
+        self, resource_name: Literal['achievement_branch'], page_info: PageInfo
+    ) -> PagedResponse[M.AchievementBranch]: ...
+    @overload
+    async def paginated_list(
+        self, resource_name: Literal['achievement_category'], page_info: PageInfo
+    ) -> PagedResponse[M.AchievementCategory]: ...
+    @overload
+    async def paginated_list(
+        self, resource_name: Literal['achievement_type'], page_info: PageInfo
+    ) -> PagedResponse[M.AchievementType]: ...
+    @overload
+    async def paginated_list(
+        self, resource_name: Literal['title'], page_info: PageInfo
+    ) -> PagedResponse[M.Title]: ...
     @overload
     async def paginated_list(
         self, resource_name: Literal['battle_effect'], page_info: PageInfo
@@ -387,6 +425,26 @@ class SeerAPI:
     async def paginated_list(
         self, resource_name: type[T_ModelInstance], page_info: PageInfo
     ) -> PagedResponse[T_ModelInstance]: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['achievement']
+    ) -> AsyncGenerator[M.Achievement, None]: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['achievement_branch']
+    ) -> AsyncGenerator[M.AchievementBranch, None]: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['achievement_category']
+    ) -> AsyncGenerator[M.AchievementCategory, None]: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['achievement_type']
+    ) -> AsyncGenerator[M.AchievementType, None]: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['title']
+    ) -> AsyncGenerator[M.Title, None]: ...
     @overload
     async def list(
         self, resource_name: Literal['battle_effect']
