@@ -4,13 +4,21 @@
 运行此脚本将生成 get_resource 方法的所有 overload 签名。
 """
 
+from pathlib import Path
+import sys
+
+# 添加项目根目录到 sys.path，以便导入 seerapi 包
+_project_root = Path(__file__).parent.parent.parent
+if str(_project_root) not in sys.path:
+    sys.path.insert(0, str(_project_root))
+
 from generate_overloads import OverloadGenerator
 
 from seerapi._model_map import MODEL_MAP
 
 
 def main():
-    """生成 SeerAPI.get_resource 的 overload 签名"""
+    """生成 overload 签名"""
 
     # 创建生成器
     generator = OverloadGenerator(
