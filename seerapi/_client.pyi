@@ -5,9 +5,9 @@ from typing_extensions import Self
 from hishel.httpx import AsyncCacheClient
 from httpx import URL
 import seerapi_models as M
-from seerapi_models.common import ResourceRef
+from seerapi_models.common import NamedData, ResourceRef
 
-from seerapi._model_map import T_ModelInstance
+from seerapi._model_map import T_ModelInstance, T_NamedModelInstance
 from seerapi._models import PagedResponse, PageInfo
 
 class SeerAPI:
@@ -575,3 +575,155 @@ class SeerAPI:
     async def list(
         self, resource_name: type[T_ModelInstance]
     ) -> AsyncGenerator[T_ModelInstance, None]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['battle_effect'], name: str
+    ) -> NamedData[M.BattleEffect]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['battle_effect_type'], name: str
+    ) -> NamedData[M.BattleEffectCategory]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['pet_effect'], name: str
+    ) -> NamedData[M.PetEffect]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['pet_effect_group'], name: str
+    ) -> NamedData[M.PetEffectGroup]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['pet_variation'], name: str
+    ) -> NamedData[M.VariationEffect]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['energy_bead'], name: str
+    ) -> NamedData[M.EnergyBead]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['equip'], name: str
+    ) -> NamedData[M.Equip]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['suit'], name: str
+    ) -> NamedData[M.Suit]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['equip_type'], name: str
+    ) -> NamedData[M.EquipType]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['soulmark_tag'], name: str
+    ) -> NamedData[M.SoulmarkTagCategory]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['element_type'], name: str
+    ) -> NamedData[M.ElementType]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['element_type_combination'], name: str
+    ) -> NamedData[M.TypeCombination]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['item'], name: str
+    ) -> NamedData[M.Item]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['item_category'], name: str
+    ) -> NamedData[M.ItemCategory]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['gem'], name: str
+    ) -> NamedData[M.Gem]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['gem_category'], name: str
+    ) -> NamedData[M.GemCategory]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['skill_activation_item'], name: str
+    ) -> NamedData[M.SkillActivationItem]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['skill_stone'], name: str
+    ) -> NamedData[M.SkillStone]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['skill_stone_category'], name: str
+    ) -> NamedData[M.SkillStoneCategory]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['mintmark'], name: str
+    ) -> NamedData[M.Mintmark]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['ability_mintmark'], name: str
+    ) -> NamedData[M.AbilityMintmark]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['skill_mintmark'], name: str
+    ) -> NamedData[M.SkillMintmark]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['universal_mintmark'], name: str
+    ) -> NamedData[M.UniversalMintmark]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['mintmark_class'], name: str
+    ) -> NamedData[M.MintmarkClassCategory]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['mintmark_type'], name: str
+    ) -> NamedData[M.MintmarkTypeCategory]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['pet'], name: str
+    ) -> NamedData[M.Pet]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['pet_gender'], name: str
+    ) -> NamedData[M.PetGenderCategory]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['pet_vipbuff'], name: str
+    ) -> NamedData[M.PetVipBuffCategory]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['pet_mount_type'], name: str
+    ) -> NamedData[M.PetMountTypeCategory]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['pet_skin'], name: str
+    ) -> NamedData[M.PetSkin]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['pet_archive_story_book'], name: str
+    ) -> NamedData[M.PetArchiveStoryBook]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['pet_encyclopedia_entry'], name: str
+    ) -> NamedData[M.PetEncyclopediaEntry]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['skill'], name: str
+    ) -> NamedData[M.Skill]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['skill_hide_effect'], name: str
+    ) -> NamedData[M.SkillHideEffect]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['skill_category'], name: str
+    ) -> NamedData[M.SkillCategory]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['skill_effect_type_tag'], name: str
+    ) -> NamedData[M.SkillEffectTypeTag]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: type[T_NamedModelInstance], name: str
+    ) -> NamedData[T_NamedModelInstance]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: ResourceRef[T_NamedModelInstance], name: str
+    ) -> NamedData[T_NamedModelInstance]: ...

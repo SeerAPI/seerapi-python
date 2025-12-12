@@ -5,13 +5,22 @@ from typing_extensions import Self
 from hishel.httpx import AsyncCacheClient
 from httpx import URL
 from httpx._urls import QueryParams
-from seerapi_models.common import ResourceRef
+from seerapi_models.common import NamedData, ResourceRef
 
-from seerapi._model_map import MODEL_MAP, ModelName, T_ModelInstance
+from seerapi._model_map import (
+    MODEL_MAP,
+    ModelName,
+    NamedModelName,
+    T_ModelInstance,
+    T_NamedModelInstance,
+)
 from seerapi._models import PagedResponse, PageInfo
 
 ResourceArg: TypeAlias = (
     ModelName | type[T_ModelInstance] | ResourceRef[T_ModelInstance]
+)
+NamedResourceArg: TypeAlias = (
+    NamedModelName | type[T_NamedModelInstance] | ResourceRef[T_NamedModelInstance]
 )
 
 
@@ -145,3 +154,19 @@ class SeerAPI:
                 page_info = paged_response.next
 
         return create_generator(PageInfo(offset=0, limit=10))
+
+    async def get_by_name(
+        self, resource_name: NamedResourceArg[T_NamedModelInstance], name: str
+    ) -> NamedData[T_NamedModelInstance]:
+        res_name = self._get_resource_name(resource_name)
+        model_type = MODEL_MAP[res_name]
+        response = await self._client.get(f'/{res_name}/{name}')
+        response.raise_for_status()
+        return NamedData.model_validate(
+            {
+                'data': {
+                    id: model_type.model_validate(item)
+                    for id, item in response.json()['data'].items()
+                }
+            }
+        )

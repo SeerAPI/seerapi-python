@@ -3,8 +3,7 @@ from typing import Literal, TypeAlias, TypeVar
 import seerapi_models as M
 from seerapi_models.common import BaseResModel
 
-# 所有可用的模型路径名称
-ModelName: TypeAlias = Literal[
+NamedModelName: TypeAlias = Literal[
     'battle_effect',
     'battle_effect_type',
     'pet_effect',
@@ -14,8 +13,6 @@ ModelName: TypeAlias = Literal[
     'equip',
     'suit',
     'equip_type',
-    'equip_effective_occasion',
-    'soulmark',
     'soulmark_tag',
     'element_type',
     'element_type_combination',
@@ -23,7 +20,6 @@ ModelName: TypeAlias = Literal[
     'item_category',
     'gem',
     'gem_category',
-    'gem_generation_category',
     'skill_activation_item',
     'skill_stone',
     'skill_stone_category',
@@ -33,30 +29,77 @@ ModelName: TypeAlias = Literal[
     'universal_mintmark',
     'mintmark_class',
     'mintmark_type',
-    'mintmark_rarity',
     'pet',
-    'pet_class',
     'pet_gender',
     'pet_vipbuff',
     'pet_mount_type',
     'pet_skin',
-    'pet_skin_category',
-    'pet_archive_story_entry',
     'pet_archive_story_book',
     'pet_encyclopedia_entry',
     'skill',
-    'skill_effect_type',
-    'skill_effect_param',
     'skill_hide_effect',
     'skill_category',
     'skill_effect_type_tag',
+]
+
+# 所有可用的模型路径名称
+ModelName: TypeAlias = Literal[
+    NamedModelName,
+    'equip_effective_occasion',
+    'soulmark',
+    'gem_generation_category',
+    'mintmark_rarity',
+    'pet_class',
+    'pet_skin_category',
+    'pet_archive_story_entry',
+    'skill_effect_type',
+    'skill_effect_param',
     'eid_effect',
 ]
 
 ModelInstance: TypeAlias = BaseResModel
+NamedModelInstance: TypeAlias = (
+    M.BattleEffect
+    | M.BattleEffectCategory
+    | M.PetEffect
+    | M.PetEffectGroup
+    | M.VariationEffect
+    | M.EnergyBead
+    | M.Equip
+    | M.Suit
+    | M.EquipType
+    | M.SoulmarkTagCategory
+    | M.ElementType
+    | M.TypeCombination
+    | M.Item
+    | M.ItemCategory
+    | M.Gem
+    | M.GemCategory
+    | M.SkillActivationItem
+    | M.SkillStone
+    | M.SkillStoneCategory
+    | M.Mintmark
+    | M.AbilityMintmark
+    | M.SkillMintmark
+    | M.UniversalMintmark
+    | M.MintmarkClassCategory
+    | M.MintmarkTypeCategory
+    | M.Pet
+    | M.PetGenderCategory
+    | M.PetVipBuffCategory
+    | M.PetMountTypeCategory
+    | M.PetSkin
+    | M.PetArchiveStoryBook
+    | M.PetEncyclopediaEntry
+    | M.Skill
+    | M.SkillHideEffect
+    | M.SkillCategory
+    | M.SkillEffectTypeTag
+)
 ModelType: TypeAlias = type[ModelInstance]
 
 T_ModelInstance = TypeVar('T_ModelInstance', bound=ModelInstance)
+T_NamedModelInstance = TypeVar('T_NamedModelInstance', bound=NamedModelInstance)
 
 MODEL_MAP: dict[ModelName, ModelType] = {
     'battle_effect': M.BattleEffect,
