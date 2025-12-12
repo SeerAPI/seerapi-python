@@ -178,6 +178,29 @@ if response.next:
     next_response = await client.paginated_list('pet', response.next)
 ```
 
+##### `get_by_name(resource_name, name)`
+
+通过名称获取资源。该方法仅支持具有名称属性的资源类型。
+
+**参数：**
+- `resource_name` (str): 资源类型名称（必须是支持按名称查询的资源类型）
+- `name` (str): 资源名称
+
+**返回：**
+- `NamedData` 对象，包含：
+  - `data[int, named_model_instance]`: 同名的模型实例字典，key 为 ID，value 为模型实例
+
+**示例：**
+
+```python
+# 通过名称获取技能
+    async with SeerAPI() as client:
+        skills = await client.get_by_name('skill', '虚妄幻境') # 有三个技能都叫虚妄幻境
+        for id, skill in skills.data.items():
+            print(id)
+            print(skill.skill_effect)
+
+```
 ### PageInfo 类
 
 用于指定分页参数。
