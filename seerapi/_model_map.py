@@ -1,9 +1,14 @@
 from typing import Literal, TypeAlias, TypeVar
 
 import seerapi_models as M
-from seerapi_models.common import BaseResModel
+from seerapi_models.build_model import BaseResModel
 
 NamedModelName: TypeAlias = Literal[
+    'achievement',
+    'achievement_branch',
+    'achievement_category',
+    'achievement_type',
+    'title',
     'battle_effect',
     'battle_effect_type',
     'pet_effect',
@@ -59,7 +64,12 @@ ModelName: TypeAlias = Literal[
 
 ModelInstance: TypeAlias = BaseResModel
 NamedModelInstance: TypeAlias = (
-    M.BattleEffect
+    M.Achievement
+    | M.AchievementBranch
+    | M.AchievementCategory
+    | M.AchievementType
+    | M.Title
+    | M.BattleEffect
     | M.BattleEffectCategory
     | M.PetEffect
     | M.PetEffectGroup
@@ -102,6 +112,11 @@ T_ModelInstance = TypeVar('T_ModelInstance', bound=ModelInstance)
 T_NamedModelInstance = TypeVar('T_NamedModelInstance', bound=NamedModelInstance)
 
 MODEL_MAP: dict[ModelName, ModelType] = {
+    'achievement': M.Achievement,
+    'achievement_branch': M.AchievementBranch,
+    'achievement_category': M.AchievementCategory,
+    'achievement_type': M.AchievementType,
+    'title': M.Title,
     'battle_effect': M.BattleEffect,
     'battle_effect_type': M.BattleEffectCategory,
     'pet_effect': M.PetEffect,
