@@ -1,5 +1,5 @@
 from collections.abc import AsyncGenerator
-from typing import TypeAlias, cast
+from typing import cast
 from typing_extensions import Self
 
 from hishel.httpx import AsyncCacheClient
@@ -10,17 +10,13 @@ from seerapi_models.common import NamedData, ResourceRef
 from seerapi._model_map import (
     MODEL_MAP,
     ModelName,
-    NamedModelName,
-    T_ModelInstance,
-    T_NamedModelInstance,
 )
 from seerapi._models import PagedResponse, PageInfo
-
-ResourceArg: TypeAlias = (
-    ModelName | type[T_ModelInstance] | ResourceRef[T_ModelInstance]
-)
-NamedResourceArg: TypeAlias = (
-    NamedModelName | type[T_NamedModelInstance] | ResourceRef[T_NamedModelInstance]
+from seerapi._typing import (
+    NamedResourceArg,
+    ResourceArg,
+    T_ModelInstance,
+    T_NamedModelInstance,
 )
 
 

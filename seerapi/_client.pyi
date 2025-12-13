@@ -7,8 +7,8 @@ from httpx import URL
 import seerapi_models as M
 from seerapi_models.common import NamedData, ResourceRef
 
-from seerapi._model_map import T_ModelInstance, T_NamedModelInstance
 from seerapi._models import PagedResponse, PageInfo
+from seerapi._typing import T_ModelInstance, T_NamedModelInstance
 
 class SeerAPI:
     scheme: str
