@@ -7,8 +7,8 @@ from httpx import URL
 import seerapi_models as M
 from seerapi_models.common import NamedData, ResourceRef
 
-from seerapi._model_map import T_ModelInstance, T_NamedModelInstance
 from seerapi._models import PagedResponse, PageInfo
+from seerapi._typing import T_ModelInstance, T_NamedModelInstance
 
 class SeerAPI:
     scheme: str
@@ -426,6 +426,10 @@ class SeerAPI:
         self, resource_name: type[T_ModelInstance], page_info: PageInfo
     ) -> PagedResponse[T_ModelInstance]: ...
     @overload
+    async def paginated_list(
+        self, resource_name: ResourceRef[T_ModelInstance], page_info: PageInfo
+    ) -> PagedResponse[T_ModelInstance]: ...
+    @overload
     async def list(
         self, resource_name: Literal['achievement']
     ) -> AsyncGenerator[M.Achievement, None]: ...
@@ -632,6 +636,10 @@ class SeerAPI:
     @overload
     async def list(
         self, resource_name: type[T_ModelInstance]
+    ) -> AsyncGenerator[T_ModelInstance, None]: ...
+    @overload
+    async def list(
+        self, resource_name: ResourceRef[T_ModelInstance]
     ) -> AsyncGenerator[T_ModelInstance, None]: ...
     @overload
     async def get_by_name(
