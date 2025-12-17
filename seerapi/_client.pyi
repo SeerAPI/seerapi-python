@@ -184,6 +184,8 @@ class SeerAPI:
         self, resource_name: Literal['pet_encyclopedia_entry'], id: int
     ) -> M.PetEncyclopediaEntry: ...
     @overload
+    async def get(self, resource_name: Literal['nature'], id: int) -> M.Nature: ...
+    @overload
     async def get(self, resource_name: Literal['skill'], id: int) -> M.Skill: ...
     @overload
     async def get(
@@ -393,6 +395,10 @@ class SeerAPI:
     async def paginated_list(
         self, resource_name: Literal['pet_encyclopedia_entry'], page_info: PageInfo
     ) -> PagedResponse[M.PetEncyclopediaEntry]: ...
+    @overload
+    async def paginated_list(
+        self, resource_name: Literal['nature'], page_info: PageInfo
+    ) -> PagedResponse[M.Nature]: ...
     @overload
     async def paginated_list(
         self, resource_name: Literal['skill'], page_info: PageInfo
@@ -607,6 +613,10 @@ class SeerAPI:
     ) -> AsyncGenerator[M.PetEncyclopediaEntry, None]: ...
     @overload
     async def list(
+        self, resource_name: Literal['nature']
+    ) -> AsyncGenerator[M.Nature, None]: ...
+    @overload
+    async def list(
         self, resource_name: Literal['skill']
     ) -> AsyncGenerator[M.Skill, None]: ...
     @overload
@@ -789,6 +799,10 @@ class SeerAPI:
     async def get_by_name(
         self, resource_name: Literal['pet_encyclopedia_entry'], name: str
     ) -> NamedData[M.PetEncyclopediaEntry]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['nature'], name: str
+    ) -> NamedData[M.Nature]: ...
     @overload
     async def get_by_name(
         self, resource_name: Literal['skill'], name: str
