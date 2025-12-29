@@ -42,6 +42,7 @@ NamedModelName: TypeAlias = Literal[
     'pet_skin',
     'pet_archive_story_book',
     'pet_encyclopedia_entry',
+    'nature',
     'skill',
     'skill_hide_effect',
     'skill_category',
@@ -102,6 +103,7 @@ NamedModelInstance: TypeAlias = (
     | M.PetSkin
     | M.PetArchiveStoryBook
     | M.PetEncyclopediaEntry
+    | M.Nature
     | M.Skill
     | M.SkillHideEffect
     | M.SkillCategory
