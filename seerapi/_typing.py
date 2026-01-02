@@ -47,13 +47,13 @@ NamedModelName: TypeAlias = Literal[
     'skill_hide_effect',
     'skill_category',
     'skill_effect_type_tag',
+    'soulmark',
 ]
 
 # 所有可用的模型路径名称
 ModelName: TypeAlias = Literal[
     NamedModelName,
     'equip_effective_occasion',
-    'soulmark',
     'gem_generation_category',
     'mintmark_rarity',
     'pet_class',

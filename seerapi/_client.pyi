@@ -843,6 +843,10 @@ class SeerAPI:
     ) -> NamedData[M.SkillEffectTypeTag]: ...
     @overload
     async def get_by_name(
+        self, resource_name: Literal['soulmark'], name: str
+    ) -> NamedData[M.Soulmark]: ...
+    @overload
+    async def get_by_name(
         self, resource_name: type[T_NamedModelInstance], name: str
     ) -> NamedData[T_NamedModelInstance]: ...
     @overload
