@@ -212,6 +212,12 @@ class SeerAPI:
         self, resource_name: Literal['eid_effect'], id: int
     ) -> M.EidEffect: ...
     @overload
+    async def get(self, resource_name: Literal['peak_pool'], id: int) -> M.PeakPool: ...
+    @overload
+    async def get(
+        self, resource_name: Literal['peak_expert_pool'], id: int
+    ) -> M.PeakExpertPool: ...
+    @overload
     async def get(
         self, resource_name: type[T_ModelInstance], id: int
     ) -> T_ModelInstance: ...
@@ -429,6 +435,14 @@ class SeerAPI:
     ) -> PagedResponse[M.EidEffect]: ...
     @overload
     async def paginated_list(
+        self, resource_name: Literal['peak_pool'], page_info: PageInfo
+    ) -> PagedResponse[M.PeakPool]: ...
+    @overload
+    async def paginated_list(
+        self, resource_name: Literal['peak_expert_pool'], page_info: PageInfo
+    ) -> PagedResponse[M.PeakExpertPool]: ...
+    @overload
+    async def paginated_list(
         self, resource_name: type[T_ModelInstance], page_info: PageInfo
     ) -> PagedResponse[T_ModelInstance]: ...
     @overload
@@ -643,6 +657,14 @@ class SeerAPI:
     async def list(
         self, resource_name: Literal['eid_effect']
     ) -> AsyncGenerator[M.EidEffect, None]: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['peak_pool']
+    ) -> AsyncGenerator[M.PeakPool, None]: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['peak_expert_pool']
+    ) -> AsyncGenerator[M.PeakExpertPool, None]: ...
     @overload
     async def list(
         self, resource_name: type[T_ModelInstance]
