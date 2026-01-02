@@ -364,21 +364,21 @@ dependencies = [
 requires-dist = [
     { name = "hishel", extras = ["httpx"], specifier = ">=1.1.5" },
     { name = "httpx", specifier = ">=0.28.1" },
-    { name = "seerapi-models", specifier = ">=1.2.2,<1.3.0" },
+    { name = "seerapi-models", specifier = ">=1.3.2,<1.4.0" },
     { name = "typing-extensions", specifier = ">=4.15.0" },
 ]
 
 [[package]]
 name = "seerapi-models"
-version = "1.2.2"
+version = "1.3.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pydantic" },
     { name = "sqlmodel" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/58/fa/a04368d6ed8f55ef38f6a5dfc1e379f57ae2153f8514c7e501e3c45fa7ee/seerapi_models-1.2.2.tar.gz", hash = "sha256:6c8880ad6f9b6e080c80467cf29aade1060ad6fda3dbfd425699b9aecbf922b7", size = 39531, upload-time = "2025-12-10T12:32:26.766Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/77/66/719b561e0ef2429b72ffe263dd49e331762c56d29576e7029e848a3c38f3/seerapi_models-1.3.2.tar.gz", hash = "sha256:15255768bf245f6a313ac4151ceae94040e453f8b0649b50720662e220a551c6", size = 26902, upload-time = "2026-01-02T11:11:26.695Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b3/0e/9004dc2115d1f2409e35502d0b951bca908b09fc4f6bee0cf76854daf5aa/seerapi_models-1.2.2-py3-none-any.whl", hash = "sha256:ef6c0cd292c2cc33ccc7f79a04b71e22b91c0642fcd292dafaa853d1b12fb544", size = 55164, upload-time = "2025-12-10T12:32:25.716Z" },
+    { url = "https://files.pythonhosted.org/packages/7e/cd/6fd4a191839111a4428b46dc5bf512fa635ebda6d145bd005346c4ae2ed1/seerapi_models-1.3.2-py3-none-any.whl", hash = "sha256:d288990c02ba464915d2481d1cad043d86cc8d859ad5fe949622d8559f60aa9c", size = 40785, upload-time = "2026-01-02T11:11:27.71Z" },
 ]
 
 [[package]]

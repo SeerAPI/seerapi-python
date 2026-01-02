@@ -47,6 +47,8 @@ MODEL_MAP: dict[ModelName, ModelType] = {
     'pet_archive_story_entry': M.PetArchiveStoryEntry,
     'pet_archive_story_book': M.PetArchiveStoryBook,
     'pet_encyclopedia_entry': M.PetEncyclopediaEntry,
+    'peak_pool': M.PeakPool,
+    'peak_expert_pool': M.PeakExpertPool,
     'nature': M.Nature,
     'skill': M.Skill,
     'skill_effect_type': M.SkillEffectType,

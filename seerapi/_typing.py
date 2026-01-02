@@ -62,6 +62,8 @@ ModelName: TypeAlias = Literal[
     'skill_effect_type',
     'skill_effect_param',
     'eid_effect',
+    'peak_pool',
+    'peak_expert_pool',
 ]
 
 ModelInstance: TypeAlias = BaseResModel
@@ -90,6 +92,7 @@ NamedModelInstance: TypeAlias = (
     | M.SkillActivationItem
     | M.SkillStone
     | M.SkillStoneCategory
+    | M.Soulmark
     | M.Mintmark
     | M.AbilityMintmark
     | M.SkillMintmark
