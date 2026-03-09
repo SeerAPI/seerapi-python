@@ -219,6 +219,14 @@ class SeerAPI:
     ) -> M.PeakExpertPool: ...
     @overload
     async def get(
+        self, resource_name: Literal['glossary_entry'], id: int
+    ) -> M.GlossaryEntry: ...
+    @overload
+    async def get(
+        self, resource_name: Literal['pet_advance'], id: int
+    ) -> M.PetAdvance: ...
+    @overload
+    async def get(
         self, resource_name: type[T_ModelInstance], id: int
     ) -> T_ModelInstance: ...
     @overload
@@ -441,6 +449,14 @@ class SeerAPI:
     async def paginated_list(
         self, resource_name: Literal['peak_expert_pool'], page_info: PageInfo
     ) -> PagedResponse[M.PeakExpertPool]: ...
+    @overload
+    async def paginated_list(
+        self, resource_name: Literal['glossary_entry'], page_info: PageInfo
+    ) -> PagedResponse[M.GlossaryEntry]: ...
+    @overload
+    async def paginated_list(
+        self, resource_name: Literal['pet_advance'], page_info: PageInfo
+    ) -> PagedResponse[M.PetAdvance]: ...
     @overload
     async def paginated_list(
         self, resource_name: type[T_ModelInstance], page_info: PageInfo
@@ -667,6 +683,14 @@ class SeerAPI:
     ) -> AsyncGenerator[M.PeakExpertPool, None]: ...
     @overload
     async def list(
+        self, resource_name: Literal['glossary_entry'], page_info: PageInfo
+    ) -> PagedResponse[M.GlossaryEntry]: ...
+    @overload
+    async def list(
+        self, resource_name: Literal['pet_advance'], page_info: PageInfo
+    ) -> PagedResponse[M.PetAdvance]: ...
+    @overload
+    async def list(
         self, resource_name: type[T_ModelInstance]
     ) -> AsyncGenerator[T_ModelInstance, None]: ...
     @overload
@@ -845,6 +869,10 @@ class SeerAPI:
     async def get_by_name(
         self, resource_name: Literal['soulmark'], name: str
     ) -> NamedData[M.Soulmark]: ...
+    @overload
+    async def get_by_name(
+        self, resource_name: Literal['glossary_entry'], name: str
+    ) -> NamedData[M.GlossaryEntry]: ...
     @overload
     async def get_by_name(
         self, resource_name: type[T_NamedModelInstance], name: str
