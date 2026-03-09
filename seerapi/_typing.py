@@ -114,7 +114,6 @@ NamedModelInstance: TypeAlias = (
     | M.SkillCategory
     | M.SkillEffectTypeTag
     | M.GlossaryEntry
-    | M.PetAdvance
 )
 ModelType: TypeAlias = type[ModelInstance]
 
