@@ -57,4 +57,6 @@ MODEL_MAP: dict[ModelName, ModelType] = {
     'skill_category': M.SkillCategory,
     'skill_effect_type_tag': M.SkillEffectTypeTag,
     'eid_effect': M.EidEffect,
+    'glossary_entry': M.GlossaryEntry,
+    'pet_advance': M.PetAdvance,
 }
