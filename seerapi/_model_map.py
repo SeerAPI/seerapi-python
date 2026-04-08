@@ -59,4 +59,12 @@ MODEL_MAP: dict[ModelName, ModelType] = {
     'eid_effect': M.EidEffect,
     'glossary_entry': M.GlossaryEntry,
     'pet_advance': M.PetAdvance,
+    'peak_pool_vote': M.PeakPoolVote,
+    'avatar_head': M.AvatarHead,
+    'avatar_frame': M.AvatarFrame,
+    'namecard_background': M.NamecardBackground,
+    'nickname_background': M.NicknameBackground,
+    'homepage_background': M.HomepageBackground,
+    'emoji': M.Emoji,
+    'error_code': M.ErrorCode,
 }

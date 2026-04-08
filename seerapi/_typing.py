@@ -49,6 +49,13 @@ NamedModelName: TypeAlias = Literal[
     'skill_effect_type_tag',
     'soulmark',
     'glossary_entry',
+    'error_code',
+    'avatar_head',
+    'avatar_frame',
+    'namecard_background',
+    'nickname_background',
+    'homepage_background',
+    'emoji',
 ]
 
 # 所有可用的模型路径名称
@@ -65,6 +72,7 @@ ModelName: TypeAlias = Literal[
     'eid_effect',
     'peak_pool',
     'peak_expert_pool',
+    'peak_pool_vote',
     'pet_advance',
 ]
 
@@ -114,6 +122,13 @@ NamedModelInstance: TypeAlias = (
     | M.SkillCategory
     | M.SkillEffectTypeTag
     | M.GlossaryEntry
+    | M.AvatarHead
+    | M.AvatarFrame
+    | M.NamecardBackground
+    | M.NicknameBackground
+    | M.HomepageBackground
+    | M.Emoji
+    | M.ErrorCode
 )
 ModelType: TypeAlias = type[ModelInstance]
 
