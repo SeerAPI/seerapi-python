@@ -6,22 +6,22 @@ authors = [{ name = "Nattsu39", email = "Nattsu39@outlook.com" }]
 license = { file = "LICENSE" }
 keywords = ["seerapi", "client"]
 classifiers = [
-    "Operating System :: OS Independent",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
-    "Programming Language :: Python :: 3.14",
+	"Operating System :: OS Independent",
+	"Intended Audience :: Developers",
+	"License :: OSI Approved :: MIT License",
+	"Programming Language :: Python :: 3.10",
+	"Programming Language :: Python :: 3.11",
+	"Programming Language :: Python :: 3.12",
+	"Programming Language :: Python :: 3.13",
+	"Programming Language :: Python :: 3.14",
 ]
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "hishel[httpx]>=1.1.5",
-    "httpx>=0.28.1",
-    "seerapi-models>=104.0.0",
-    "typing-extensions>=4.15.0",
+	"hishel[httpx]>=1.1.5",
+	"httpx>=0.28.1",
+	"seerapi-models>=105.0.0,<106.0.0",
+	"typing-extensions>=4.15.0",
 ]
 
 [project.urls]
@@ -54,30 +54,30 @@ docstring-code-format = false
 
 [tool.ruff.lint]
 select = [
-    "F",     # Pyflakes
-    "W",     # pycodestyle warnings
-    "E",     # pycodestyle errors
-    "UP",    # pyupgrade
-    "ASYNC", # flake8-async
-    "C4",    # flake8-comprehensions
-    "T10",   # flake8-debugger
-    "T20",   # flake8-print
-    "PYI",   # flake8-pyi
-    "PT",    # flake8-pytest-style
-    "Q",     # flake8-quotes
-    "I",     # isort
-    "RUF",   # Ruff-specific rules
+	"F",     # Pyflakes
+	"W",     # pycodestyle warnings
+	"E",     # pycodestyle errors
+	"UP",    # pyupgrade
+	"ASYNC", # flake8-async
+	"C4",    # flake8-comprehensions
+	"T10",   # flake8-debugger
+	"T20",   # flake8-print
+	"PYI",   # flake8-pyi
+	"PT",    # flake8-pytest-style
+	"Q",     # flake8-quotes
+	"I",     # isort
+	"RUF",   # Ruff-specific rules
 ]
 ignore = [
-    "Q000",   # bad-quotes-inline-string
-    "Q001",   # bad-quotes-multiline-string
-    "Q002",   # bad-quotes-docstring
-    "Q003",   # avoidable-escaped-quote
-    "E402",   # module-import-not-at-top-of-file
-    "UP037",  # quoted-annotation
-    "RUF001", # ambiguous-unicode-character-string
-    "RUF002", # ambiguous-unicode-character-docstring
-    "RUF003", # ambiguous-unicode-character-comment
+	"Q000",   # bad-quotes-inline-string
+	"Q001",   # bad-quotes-multiline-string
+	"Q002",   # bad-quotes-docstring
+	"Q003",   # avoidable-escaped-quote
+	"E402",   # module-import-not-at-top-of-file
+	"UP037",  # quoted-annotation
+	"RUF001", # ambiguous-unicode-character-string
+	"RUF002", # ambiguous-unicode-character-docstring
+	"RUF003", # ambiguous-unicode-character-comment
 ]
 
 
