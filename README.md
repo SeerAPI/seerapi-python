@@ -1,3 +1,5 @@
+该仓库已迁移至 https://github.com/SeerAPI/seerapi
+
 # SeerAPI Python 客户端
 
 [SeerAPI](https://github.com/SeerAPI) 是一个提供赛尔号游戏数据的开放 API 平台。本项目是 SeerAPI 的官方 Python 客户端库，提供了简洁易用的异步接口，支持获取精灵、技能、装备、刻印等 50+ 种游戏资源数据。
